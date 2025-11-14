@@ -9,7 +9,7 @@ resource "aws_lambda_function" "backend" {
   memory_size                    = 512
   publish                        = true
   role                           = aws_iam_role.threat_designer_api_role.arn
-  reserved_concurrent_executions = null
+  reserved_concurrent_executions = var.lambda_concurrency
   runtime                        = local.python_version
   environment {
     variables = {
