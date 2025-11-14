@@ -3,7 +3,7 @@ resource "aws_lambda_function" "authorizer_lambda" {
   source_code_hash               = data.archive_file.authorizer_lambda_code_zip.output_base64sha256
   handler                        = "index.lambda_handler"
   runtime                        = local.python_version
-  reserved_concurrent_executions = var.lambda_concurrency
+  reserved_concurrent_executions = null
   function_name                  = "${local.prefix}-authorizer"
   role                           = aws_iam_role.auth-lambda-execution-role.arn
   publish                        = true
