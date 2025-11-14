@@ -3,7 +3,7 @@ resource "aws_lambda_function" "authorizer_lambda" {
   source_code_hash               = data.archive_file.authorizer_lambda_code_zip.output_base64sha256
   handler                        = "index.lambda_handler"
   runtime                        = local.python_version
-  reserved_concurrent_executions = null
+  reserved_concurrent_executions = var.lambda_concurrency
   function_name                  = "${local.prefix}-authorizer"
   role                           = aws_iam_role.auth-lambda-execution-role.arn
   publish                        = true
@@ -47,7 +47,7 @@ resource "aws_lambda_alias" "authorizer_lambda_alias" {
 
 resource "aws_lambda_provisioned_concurrency_config" "authorizer_lambda_alias_provisioned_concurrency_config" {
   function_name                     = aws_lambda_alias.authorizer_lambda_alias.function_name
-  provisioned_concurrent_executions = null
+  provisioned_concurrent_executions = var.provisioned_lambda_concurrency
   qualifier                         = aws_lambda_alias.authorizer_lambda_alias.name
 }
 
