@@ -47,7 +47,7 @@ resource "aws_lambda_alias" "authorizer_lambda_alias" {
 
 resource "aws_lambda_provisioned_concurrency_config" "authorizer_lambda_alias_provisioned_concurrency_config" {
   function_name                     = aws_lambda_alias.authorizer_lambda_alias.function_name
-  provisioned_concurrent_executions = var.provisioned_lambda_concurrency
+  provisioned_concurrent_executions = null
   qualifier                         = aws_lambda_alias.authorizer_lambda_alias.name
 }
 
